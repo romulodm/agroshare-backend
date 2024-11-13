@@ -1,4 +1,5 @@
 const User = require('../models/sequelize/user.model');
+const { Sequelize } = require('sequelize');
 
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
