@@ -1,6 +1,7 @@
 const User = require('../models/sequelize/user.model');
 const { Sequelize } = require('sequelize');
 
+const redisClient = require('../../config/redis')
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
@@ -10,12 +11,7 @@ exports.login = async (req, res) => {
         return res.status(400).json({ error: 'Campos "email" e "password" são obrigatórios.' });
     }
 
-    const user = await User.findOne({ where: { email: req.body.email }, 
-        include: [{
-            model: UserImage,
-            attributes: ['url'],
-        }],
-    });
+    const user = await User.findOne({ where: { email: req.body.email } });
 
     if (!user) {
         return res.status(204).json({ error: "Credenciais incorretas. Verifique seu email e senha." });
