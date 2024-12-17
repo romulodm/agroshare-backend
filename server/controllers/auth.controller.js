@@ -5,6 +5,7 @@ const redisClient = require('../../config/redis')
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
+
 exports.login = async (req, res) => {
   try{
     if (!req.body || !req.body.email || !req.body.password) {
@@ -44,7 +45,7 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const { email, password, ...rest } = req.body;
+    const { email, password, first_name, surname, ...rest } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ error: 'Campos "email" e "password" são obrigatórios.' });
@@ -54,7 +55,7 @@ exports.register = async (req, res) => {
       password, 
       process.env.CRYPTO_SECURITY_PASS).toString();
 
-    const user = await User.create({ email, password: encryptedPassword, ...rest });
+    const user = await User.create({ email, password: encryptedPassword, first_name, surname, ...rest });
 
     res.status(201).json({ message: "Usuário registrado com sucesso.", user });
   } catch (error) {
@@ -62,6 +63,7 @@ exports.register = async (req, res) => {
       res.status(204).json({ error: 'E-mail já está em uso.' });
     } else {
       res.status(500).json({ error: 'Erro interno do servidor.' });
+      console.log(error)
     }
   }
 };

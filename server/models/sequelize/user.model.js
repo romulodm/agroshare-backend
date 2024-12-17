@@ -7,17 +7,25 @@ const User = sequelize.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  state: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   username: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   first_name: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   surname: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
@@ -29,10 +37,6 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   phone_number: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  location: {
     type: DataTypes.STRING,
     allowNull: true,
   },
