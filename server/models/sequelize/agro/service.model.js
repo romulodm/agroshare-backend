@@ -1,7 +1,10 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../../config/sequelize');
+const sequelize = require('../../../../config/sequelize');
+const Transaction = require('./transaction.model');
+const Coment = require('./comment.model');
 
-const Implement = sequelize.define('Implement', {
+
+const Service = sequelize.define('Service', {
   id: {
     type: DataTypes.BIGINT,
     autoIncrement: true,
@@ -15,7 +18,7 @@ const Implement = sequelize.define('Implement', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  price: {
+  price_per_hour: {
     type: DataTypes.DECIMAL,
     allowNull: true,
   },
@@ -43,8 +46,15 @@ const Implement = sequelize.define('Implement', {
     type: DataTypes.DATE,
   },
 }, {
-  tableName: 'implements',
+  tableName: 'services',
   timestamps: false,
 });
 
-module.exports = Implement;
+Service.hasMany(Transaction, { foreignKey: 'service_id' });
+Transaction.belongsTo(Service, { foreignKey: 'service_id' });
+
+Service.hasMany(Coment, { foreignKey: 'service_id' });
+Coment.belongsTo(Service, { foreignKey: 'service_id' });
+
+module.exports = Service;
+

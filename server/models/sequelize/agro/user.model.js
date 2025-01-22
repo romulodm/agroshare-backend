@@ -1,5 +1,9 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../../config/sequelize');
+const sequelize = require('../../../../config/sequelize');
+const Coment = require('./comment.model');
+const Transaction = require('./transaction.model');
+const Service = require('./service.model');
+const Implement = require('./implement.model');
 
 const User = sequelize.define('User', {
   id: {
@@ -56,4 +60,19 @@ const User = sequelize.define('User', {
   timestamps: false,
 });
 
+User.hasMany(Implement, { foreignKey: 'user_id' });
+Implement.belongsTo(User, { foreignKey: 'user_id' });
+
+User.hasMany(Service, { foreignKey: 'user_id' });
+Service.belongsTo(User, { foreignKey: 'user_id' });
+
+User.hasMany(Coment, { foreignKey: 'user_id' });
+Coment.belongsTo(User, { foreignKey: 'user_id' });
+
+User.hasMany(Transaction, { foreignKey: 'buyer_id', as: 'Buyer' });
+User.hasMany(Transaction, { foreignKey: 'seller_id', as: 'Seller' });
+Transaction.belongsTo(User, { foreignKey: 'buyer_id', as: 'Buyer' });
+Transaction.belongsTo(User, { foreignKey: 'seller_id', as: 'Seller' });
+  
 module.exports = User;
+

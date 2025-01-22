@@ -1,19 +1,19 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../../config/sequelize');
+const sequelize = require('../../../../config/sequelize');
 
-const Transaction = sequelize.define('Transaction', {
+const Coment = sequelize.define('Coment', {
   id: {
     type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true,
   },
-  transaction_type: {
-    type: DataTypes.STRING,
+  user_id: {
+    type: DataTypes.BIGINT,
     allowNull: false,
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
   },
   implement_id: {
     type: DataTypes.BIGINT,
@@ -31,21 +31,9 @@ const Transaction = sequelize.define('Transaction', {
       key: 'id',
     },
   },
-  buyer_id: {
-    type: DataTypes.BIGINT,
+  text: {
+    type: DataTypes.TEXT,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id',
-    },
-  },
-  seller_id: {
-    type: DataTypes.BIGINT,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id',
-    },
   },
   created_at: {
     type: DataTypes.DATE,
@@ -55,8 +43,8 @@ const Transaction = sequelize.define('Transaction', {
     type: DataTypes.DATE,
   },
 }, {
-  tableName: 'transactions',
+  tableName: 'comments',
   timestamps: false,
 });
 
-module.exports = Transaction;
+module.exports = Coment;

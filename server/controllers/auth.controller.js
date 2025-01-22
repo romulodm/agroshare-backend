@@ -1,4 +1,4 @@
-const User = require('../models/sequelize/user.model');
+const User = require('../models/sequelize/agro/user.model');
 const { Sequelize } = require('sequelize');
 
 const redisClient = require('../../config/redis')

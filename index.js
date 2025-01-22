@@ -7,8 +7,8 @@ const pg = require('./config/sequelize')
 const redisClient = require('./config/redis')
 
 pg.sync()
-        .then(() => { console.log("Connected on PostgreSQL!") })
-        .catch(err => console.log('An error ocurred on PostgreSQL connection attempt:', err));
+.then(() => { console.log("Connected on PostgreSQL!") })
+.catch(err => console.log('An error ocurred on PostgreSQL connection attempt:', err));
 
 const app = express();
 app.disable("x-powered-by");
@@ -40,8 +40,8 @@ app.use((req, res, next) => {
 });
 
 app.use(
-    "/user-image",
-    express.static(path.resolve(__dirname, ".", "tmp"))
+    "/uploads/implements",
+    express.static(path.resolve(__dirname, ".", "uploads", "implements"))
 );
 
 const apiPrefix = '/agroshare/api/v1'
@@ -49,6 +49,9 @@ const apiPrefix = '/agroshare/api/v1'
 app.use(apiPrefix + '/auth', require('./server/routes/auth.route.js'));
 app.use(apiPrefix + '/users', require('./server/routes/user.route.js'));
 app.use(apiPrefix + '/email', require('./server/routes/email.route.js'));
+app.use(apiPrefix + '/commodities', require('./server/routes/commodities.route.js'));
+app.use(apiPrefix + '/posts', require('./server/routes/posts.route.js'));
+app.use(apiPrefix + '/comments', require('./server/routes/comments.route.js'));
 
 app.listen(process.env.PORT, () => {
     console.log(`🚀 Server running on PORT: ${process.env.PORT}`);

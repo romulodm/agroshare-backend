@@ -1,4 +1,4 @@
-const User = require('../models/sequelize/user.model');
+const User = require('../models/sequelize/agro/user.model');
 
 exports.createUser = async (req, res) => {
   try {
